@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps{
-                git branch: 'ITGO_BACKEND', credentialsId: 'github', url: 'https://github.com/jeonjuho23/ITGO_BACKEND.git'
+                git branch: 'master', credentialsId: 'github', url: 'https://github.com/jeonjuho23/ITGO_BACKEND.git'
             }
             post {
                 success {
