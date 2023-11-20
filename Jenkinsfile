@@ -5,6 +5,14 @@ pipeline {
             steps{
                 git branch: 'ITGO_BACKEND', credentialsId: 'github', url: 'https://github.com/jeonjuho23/ITGO_BACKEND.git'
             }
+            post {
+                success {
+                    echo "clone success"
+                }
+                failure {
+                    echo "clone failure"
+                }
+            }
         }
         stage('Set env') {
             steps{
@@ -12,6 +20,14 @@ pipeline {
                     script {
                         sh 'cp $application src/main/resources/application.yaml'
                     }
+                }
+            }
+            post {
+                success {
+                    echo "set env success"
+                }
+                failure {
+                    echo "set env failure"
                 }
             }
         }
@@ -22,6 +38,14 @@ pipeline {
                 echo "Docker Image delete"
                 sh "docker rmi itgoserver"
             }
+            post {
+                success {
+                    echo "docker down success"
+                }
+                failure {
+                    echo "docker down failure"
+                }
+            }
         }
         stage('Docker build') {
             steps {
@@ -30,10 +54,10 @@ pipeline {
             }
             post {
                 success {
-                    echo "Success"
+                    echo "docker build Success"
                 }
                 failure {
-                    echo "Fail"
+                    echo "docker bild Fail"
                 }
             }
         }
@@ -44,10 +68,10 @@ pipeline {
             }
             post {
                 success {
-                    echo "Deploy Success"
+                    echo "docker Deploy Success"
                 }
                 failure {
-                    echo "Deploy Fail"
+                    echo "docker Deploy Fail"
                 }
             }
         }
