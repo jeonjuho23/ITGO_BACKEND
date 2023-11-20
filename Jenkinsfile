@@ -1,12 +1,10 @@
 pipeline {
     agent any
-    environment{
-
-    }
     stages {
         stage('Clone Repository') {
             steps{
                 git branch: 'ITGO_BACKEND', credentialsId: 'github', url: 'https://github.com/jeonjuho23/ITGO_BACKEND.git'
+            }
         }
         stage('Set env') {
             steps{
@@ -53,6 +51,5 @@ pipeline {
                 }
             }
         }
-    }
     }
 }
