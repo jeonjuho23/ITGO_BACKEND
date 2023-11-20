@@ -6,11 +6,11 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps{
-                git branch: 'ITGO_BACKEND', credentailsId: 'github', url: 'https://github.com/jeonjuho23/ITGO_BACKEND.git'
+                git branch: 'ITGO_BACKEND', credentialsId: 'github', url: 'https://github.com/jeonjuho23/ITGO_BACKEND.git'
         }
         stage('Set env') {
             steps{
-                withCredentails([file(credentialsId: 'application', variable: 'application')]) {
+                withCredentials([file(credentialsId: 'application', variable: 'application')]) {
                     script {
                         sh 'cp $application src/main/resources/application.yaml'
                     }
