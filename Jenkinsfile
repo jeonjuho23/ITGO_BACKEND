@@ -32,22 +32,6 @@ pipeline {
                 }
             }
         }
-        stage('Docker down') {
-            steps {
-                echo "Docker down"
-                sh "docker stop itgoserver"
-                echo "Docker Image delete"
-                sh "docker rmi itgoserver"
-            }
-            post {
-                success {
-                    echo "docker down success"
-                }
-                failure {
-                    echo "docker down failure"
-                }
-            }
-        }
         stage('Docker build') {
             steps {
                 echo "Docker itgoserver build"
