@@ -16,9 +16,10 @@ pipeline {
         }
         stage('Set env') {
             steps{
+                sh 'mkdir src/main/resources'
                 withCredentials([file(credentialsId: 'application', variable: 'application')]) {
                     script {
-                        sh 'cp $application ITGO_BACKEND/src/main/resources'
+                        sh 'cp $application src/main/resources/application.yaml'
                     }
                 }
             }
