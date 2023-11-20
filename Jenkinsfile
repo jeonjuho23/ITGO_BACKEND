@@ -18,7 +18,7 @@ pipeline {
             steps{
                 withCredentials([file(credentialsId: 'application', variable: 'application')]) {
                     script {
-                        sh 'cp $application ITGO_BACKEND/src/main/resources/application.yaml'
+                        sh 'cp $application ITGO_BACKEND/src/main/resources'
                     }
                 }
             }
