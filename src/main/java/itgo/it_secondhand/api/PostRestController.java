@@ -1,6 +1,5 @@
 package itgo.it_secondhand.api;
 
-import itgo.it_secondhand.api.DTO.post.*;
 import itgo.it_secondhand.enum_.SortBy;
 import itgo.it_secondhand.service.post.DTO.FindPostReqDTO;
 import itgo.it_secondhand.service.post.DTO.FindPostResDTO;

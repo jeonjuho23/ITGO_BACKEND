@@ -31,6 +31,23 @@ pipeline {
                 }
             }
         }
+
+        stage('Docker down') {
+            steps {
+                echo "Docker down"
+                sh "docker stop itgoserver"
+                echo "Docker Image delete"
+                sh "docker rmi itgoserver"
+            }
+            post {
+                success {
+                    echo "docker down success"
+                }
+                failure {
+                    echo "docker down failure"
+                }
+            }
+        }
         stage('Docker build') {
             steps {
                 echo "Docker itgoserver build"
@@ -41,7 +58,7 @@ pipeline {
                     echo "docker build Success"
                 }
                 failure {
-                    echo "docker bild Fail"
+                    echo "docker build Fail"
                 }
             }
         }

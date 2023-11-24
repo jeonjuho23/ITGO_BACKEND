@@ -1,8 +1,5 @@
 package itgo.it_secondhand.api;
 
-import itgo.it_secondhand.api.DTO.search.KeywordSearchResponseDTO;
-import itgo.it_secondhand.api.DTO.search.RecentSearchesResponseDTO;
-import itgo.it_secondhand.api.DTO.search.SearchRankingResponseDTO;
 import itgo.it_secondhand.enum_.SortBy;
 import itgo.it_secondhand.service.post.DTO.FindPostResDTO;
 import itgo.it_secondhand.service.search.DTO.*;
