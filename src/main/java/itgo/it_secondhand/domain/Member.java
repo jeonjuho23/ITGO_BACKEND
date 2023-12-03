@@ -3,13 +3,15 @@ package itgo.it_secondhand.domain;
 
 import itgo.it_secondhand.domain.value.Location;
 import jakarta.persistence.*;
-import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
+import lombok.*;
 
 @Entity
 @Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Member {
 
     @Id @GeneratedValue
@@ -22,9 +24,6 @@ public class Member {
 
     @Embedded
     private Location location;
-
-
-    protected Member() {}
 
     private Member(String phone, String name, String imgAddress, Location location) {
         this.phone = phone;
@@ -54,5 +53,19 @@ public class Member {
         return new Member(phone, name, imgAddress, location);
     }
 
+    public void updateUser(Member member) {
+        if(member.getPhone() != null){
+            this.phone=member.getPhone();
+        }
+        if(member.getName() != null){
+            this.name=member.getName();
+        }
+        if(member.getLocation() != null){
+            this.location=member.getLocation();
+        }
+        if(member.getImgAddress() != null){
+            this.imgAddress=member.getImgAddress();
+        }
+    }
 
 }
