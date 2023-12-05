@@ -4,6 +4,9 @@ import itgo.it_secondhand.domain.Device;
 import itgo.it_secondhand.domain.Member;
 import itgo.it_secondhand.domain.SecondhandScrapedPost;
 import itgo.it_secondhand.domain.value.Location;
+import itgo.it_secondhand.enum_.SortBy;
+import itgo.it_secondhand.service.post.DTO.FindPostReqDTO;
+import itgo.it_secondhand.service.post.DTO.FindPostResDTO;
 import itgo.it_secondhand.service.post.DTO.PostViewReqDTO;
 import itgo.it_secondhand.service.post.DTO.ScrapedPostViewResDTO;
 import itgo.it_secondhand.repository.DeviceRepository;
@@ -64,6 +67,23 @@ class ScrapingPostServiceImplTest {
 
     }
 
+    @Test
+    @Rollback(value = false)
+    public void findLikePostList() throws Exception {
+        // given
+
+        FindPostReqDTO findPostReqDTO = FindPostReqDTO.builder()
+                .memberId(1L)
+                .page(0).size(10).sortBy(SortBy.RECENT_POST)
+                .build();
+
+        // when
+        FindPostResDTO findPostResDTO = scrapingPostService.findLikeScrapingPostList(findPostReqDTO);
+
+        // then
+        assertEquals(findPostResDTO.getPosts().size(), 3, "`````````");
+    }
+
 
     @Data
     @AllArgsConstructor
@@ -92,4 +112,7 @@ class ScrapingPostServiceImplTest {
 //        return viewTestDTO;
         return null;
     }
+
+
+
 }

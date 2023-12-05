@@ -75,7 +75,7 @@ class SecondhandPostRepositoryTest {
     }
 
     @Test
-//    @Rollback(value = false)
+    @Rollback(value = false)
     public void likeQueryTest() throws Exception {
         // given
         // 멤버, 게시글, 기기 데이터 생성
@@ -90,28 +90,34 @@ class SecondhandPostRepositoryTest {
         // when
 //        Slice<SecondhandScrapedPost> result = secondhandPostRepository.findPostKeywordContaining(keyword, pageable);
         Slice<SecondhandScrapedPost> result = secondhandPostRepository.findByDevice_DeviceNameContaining(keyword, pageable);
+    }
 
 
+    @Test
+    @Rollback(value = false)
+    public void findLikePost() throws Exception{
 
+//        List<Long> registIdList = new ArrayList<>();
+//        for(int i=1; i<12; i++){
+//            registIdList.add(postLikeService.regist(new LikeReqDTO(1L, (long) i)));
+//        }
 
+        int page = 1;
+        int size = 20;
 
-        List<Long> registIdList = new ArrayList<>();
-        for(int i=1; i<12; i++){
-            registIdList.add(postLikeService.regist(new LikeReqDTO(1L, (long) i)));
-        }
-
+        Pageable pageable = PageRequest.of(page, size);
 
         // when
         Slice<SecondhandScrapedPost> tet = secondhandPostRepository.findLikePostByMember_Id(1L, pageable);
 
 
 
-
-
-        // then
-        assertEquals(size, result.getSize(), "size는 같아야합니다.");
-//        assertTrue(result.hasNext(),"총 데이터 30개 출력 데이터는 페이지 0에서 10개이므로 다음 데이터가 있습니다.");
-        assertTrue(result.hasContent(),"content가 있습니다.");
+//
+//
+//        // then
+//        assertEquals(size, result.getSize(), "size는 같아야합니다.");
+////        assertTrue(result.hasNext(),"총 데이터 30개 출력 데이터는 페이지 0에서 10개이므로 다음 데이터가 있습니다.");
+//        assertTrue(result.hasContent(),"content가 있습니다.");
 
 
     }

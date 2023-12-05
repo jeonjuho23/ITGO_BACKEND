@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.NoSuchElementException;
 
 public interface MemberViewPostRepository extends JpaRepository<MemberViewPost, Long> {
-    MemberViewPost findByMemberAndPost(Member member, Post post) throws NoSuchElementException;
+    MemberViewPost findTopByMemberAndPostOrderByViewDateDesc(Member member, Post post);
 }

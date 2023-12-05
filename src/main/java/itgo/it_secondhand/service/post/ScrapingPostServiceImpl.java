@@ -32,7 +32,7 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
 
 
         // 첫 조회면 데이터 생성
-        MemberViewPost view = memberViewPostRepository.findByMemberAndPost(member, secondhandScrapedPost);
+        MemberViewPost view = memberViewPostRepository.findTopByMemberAndPostOrderByViewDateDesc(member, secondhandScrapedPost);
         if (view != null){
             view.increaseViewCount();
         }else{
@@ -67,6 +67,7 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
 
     @Override
     public FindPostResDTO findLikeScrapingPostList(FindPostReqDTO findPostReqDTO) {
+        Member member = memberRepository.findById(findPostReqDTO.getMemberId()).get();
 
         // pageable 구현체 생성
         Pageable pageable = PageRequest.of(findPostReqDTO.getPage(), findPostReqDTO.getSize(), Sort.by(findPostReqDTO.getSortBy().label()));
@@ -75,7 +76,7 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
         Slice<SecondhandScrapedPost> likePosts = secondhandPostRepository.findLikePostByMember_Id(findPostReqDTO.getMemberId(), pageable);
 
         // res 변환
-        Member member = memberRepository.findById(findPostReqDTO.getMemberId()).get();
+
 
         return setFindPostDTO(member, likePosts);
     }
@@ -89,10 +90,12 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
         for(SecondhandScrapedPost post : posts){
             // is like?
             Boolean isLike = Boolean.TRUE;
-            if(memberLikePostRepository.findByMemberAndPost(member, post) == null) isLike = Boolean.FALSE;
+            MemberLikePost likeMemberAndPost = memberLikePostRepository.findByMemberAndPost(member, post);
+            if(likeMemberAndPost == null) isLike = Boolean.FALSE;
             // is view?
             Boolean isView = Boolean.TRUE;
-            if(memberViewPostRepository.findByMemberAndPost(member, post) == null) isView = Boolean.FALSE;
+            MemberViewPost viewMemberAndPost = memberViewPostRepository.findTopByMemberAndPostOrderByViewDateDesc(member, post);
+            if(viewMemberAndPost == null) isView = Boolean.FALSE;
 
             findPostDTOList.add(new FindPostDTO(member, post, isView, isLike));
         }
