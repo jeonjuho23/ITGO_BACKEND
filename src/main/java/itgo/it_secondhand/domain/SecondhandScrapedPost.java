@@ -25,16 +25,20 @@ public class SecondhandScrapedPost extends Post{
     private Location location;
 
 
-    private SecondhandScrapedPost(Member member, String postTitle, String postContent, String imgFolderAddress, Device device, int secondhandPrice, String postUrl){
+    private SecondhandScrapedPost(Member member, String postTitle, String postContent, String imgFolderAddress,
+                                  Device device, int secondhandPrice, String postUrl,Location location){
         super(member, postTitle, postContent, LocalDateTime.now(), LocalDateTime.now(), 0, 0, imgFolderAddress);
         this.device = device;
         this.secondhandPrice = secondhandPrice;
         this.postUrl = postUrl;
-        this.location = member.getLocation();
+        this.location = location;
     }
 
-    public static SecondhandScrapedPost createPost(Member member, String postTitle, String postContent, String imgFolderAddress, Device device, int secondhandPrice, String postUrl){
-        return new SecondhandScrapedPost(member, postTitle, postContent, imgFolderAddress, device, secondhandPrice, postUrl);
+    public static SecondhandScrapedPost createPost(Member member, String postTitle, String postContent,
+                                                   String imgFolderAddress, Device device,
+                                                   int secondhandPrice, String postUrl,
+                                                   Location location){
+        return new SecondhandScrapedPost(member, postTitle, postContent, imgFolderAddress, device, secondhandPrice, postUrl, location);
     }
 
 

@@ -20,6 +20,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,7 +47,7 @@ class DeviceLikeServiceImplTest {
 
     public LikeReqDTO createLike() {
         Member member = Member.createMember("phone", "name", "imgAddress", new Location("city", "street", "zipcode"));
-        Device device = Device.createDevice("manufacturer", "deviceName", 1000);
+        Device device = Device.createDevice("manufacturer", "deviceName", 1000, 1150, LocalDateTime.now());
 
         memberRepository.save(member);
         deviceRepository.save(device);

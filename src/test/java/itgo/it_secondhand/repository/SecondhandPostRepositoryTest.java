@@ -28,6 +28,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,9 +62,9 @@ class SecondhandPostRepositoryTest {
         List<SecondhandScrapedPost> postList = new ArrayList<>();
 
         for (int i = 0; i < 30; i++) {
-            Device device = Device.createDevice("manufacturer", "deviceName" + i, 1000);
+            Device device = Device.createDevice("manufacturer", "deviceName" + i, 1000, 1150, LocalDateTime.now());
             deviceList.add(device);
-            postList.add(SecondhandScrapedPost.createPost(member, "title"+i, "content", "imgFolderAddress", device, 1000, "postUrl"));
+            postList.add(SecondhandScrapedPost.createPost(member, "title"+i, "content", "imgFolderAddress", device, 1000, "postUrl",new Location("city","street","zipcode")));
         }
 
         deviceRepository.saveAll(deviceList);

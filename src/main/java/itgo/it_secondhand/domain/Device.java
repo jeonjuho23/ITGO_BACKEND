@@ -23,18 +23,22 @@ public class Device {
     @Column(name = "detail_id")
     private Long detailId;
 
+    // 카테고리 이름
+    private int category;
+
 
     protected Device(){}
 
-    private Device(String manufacturer, String deviceName, int launchPrice){
+    private Device(String manufacturer, String deviceName, int launchPrice, int category, LocalDateTime releaseDate){
         this.manufacturer = manufacturer;
         this.deviceName = deviceName;
         this.launchPrice = launchPrice;
-        this.releaseDate = LocalDateTime.now();
+        this.category = category;
+        this.releaseDate = releaseDate;
     }
     //== 생성 메서드 ==//
-    public static Device createDevice(String manufacturer, String deviceName, int launchPrice) {
-        return new Device(manufacturer, deviceName, launchPrice);
+    public static Device createDevice(String manufacturer, String deviceName, int launchPrice, int category, LocalDateTime releaseDate) {
+        return new Device(manufacturer, deviceName, launchPrice, category, releaseDate);
     }
 
 

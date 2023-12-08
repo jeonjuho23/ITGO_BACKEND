@@ -25,6 +25,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -93,24 +95,22 @@ class ScrapingPostServiceImplTest {
     }
 
     public ViewTestDTO createMemberAndPost(){
-//        Location location = new Location("city", "street", "zipcode");
-//        Member member = Member.createMember("phone", "name", "address", location);
-//        Device device = Device.createDevice("manufacturer", "deviceName", 1000);
-//        SecondhandScrapedPost secondhandScrapedPost = SecondhandScrapedPost.builder()
-//                        .member(member).postTitle("postTitle").postContent("postContent")
-//                        .imgFolderAddress("imgFolderAddress").device(device).secondhandPrice(1000).postUrl("postUrl")
-//                        .location(location).build();
-//        memberRepository.save(member);
-//        deviceRepository.save(device);
-//        postRepository.save(secondhandScrapedPost);
-//
-//        ViewTestDTO viewTestDTO = new ViewTestDTO(member.getId(), secondhandScrapedPost.getId());
-//
-//        em.flush();
-//        em.clear();
-//
-//        return viewTestDTO;
-        return null;
+        Location location = new Location("city", "street", "zipcode");
+        Member member = Member.createMember("phone", "name", "address", location);
+        Device device = Device.createDevice("manufacturer", "deviceName", 1000,1150, LocalDateTime.now());
+        SecondhandScrapedPost secondhandScrapedPost = SecondhandScrapedPost.
+                createPost(member,"postTitle","postContent","imgFolderAddress",
+                        device,1000,"postUrl",location);
+        memberRepository.save(member);
+        deviceRepository.save(device);
+        postRepository.save(secondhandScrapedPost);
+
+        ViewTestDTO viewTestDTO = new ViewTestDTO(member.getId(), secondhandScrapedPost.getId());
+
+        em.flush();
+        em.clear();
+
+        return viewTestDTO;
     }
 
 
