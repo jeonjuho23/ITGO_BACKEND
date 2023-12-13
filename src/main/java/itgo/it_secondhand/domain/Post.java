@@ -26,15 +26,18 @@ public abstract class Post {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Column(length = 200)
     private String postTitle;
 
-    @Column(length = 5000)
+    @Column(length = 2000)
     private String postContent;
 
     private LocalDateTime postTime;
     private LocalDateTime postUpdateTime;
     private int postLikeCount;
     private int postViewCount;
+
+    @Column(length = 2000)
     private String imgFolderAddress;
 
 

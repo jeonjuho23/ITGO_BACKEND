@@ -51,9 +51,10 @@ class ScrapingPostServiceImplTest {
     @Rollback(value = false)
     public void viewTest() throws Exception {
         // given
-        ViewTestDTO memberAndPost = createMemberAndPost();
+//        ViewTestDTO memberAndPost = createMemberAndPost();
 
-        PostViewReqDTO postViewReqDTO = new PostViewReqDTO(memberAndPost.getMemberId(), memberAndPost.postId);
+//        PostViewReqDTO postViewReqDTO = new PostViewReqDTO(memberAndPost.getMemberId(), memberAndPost.postId);
+        PostViewReqDTO postViewReqDTO = new PostViewReqDTO(90L, 10L);
 
         // when
         ScrapedPostViewResDTO first = scrapingPostService.viewScrapingPost(postViewReqDTO);
