@@ -23,7 +23,7 @@ public class FindPostDTO {
         this.postId = post.getId();
         this.title = post.getPostTitle();
         this.memberName = member.getName();
-        this.location = member.getLocation();
+        this.location = post.getLocation();
         this.price = post.getSecondhandPrice();
         this.imgFolderAddress = post.getImgFolderAddress();
         this.postTime = post.getPostTime();

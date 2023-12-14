@@ -87,6 +87,22 @@ class ScrapingPostServiceImplTest {
         assertEquals(findPostResDTO.getPosts().size(), 3, "`````````");
     }
 
+    @Test
+    @Rollback
+    public void findPostList() throws Exception {
+        // given
+        FindPostReqDTO reqDTO = FindPostReqDTO.builder()
+                .memberId(1L)
+                .page(0).size(10).sortBy(SortBy.RECENT_POST)
+                .build();
+
+        // when
+        FindPostResDTO allScrapingPostList = scrapingPostService.findALlScrapingPostList(reqDTO);
+
+        // then
+        assertEquals(allScrapingPostList.getPosts().get(1).getMemberName(), "joongna","현재 저장된 게시글은 모두 중고나라에서 스크래핑 되었습니다.");
+    }
+
 
     @Data
     @AllArgsConstructor

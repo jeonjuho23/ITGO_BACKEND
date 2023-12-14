@@ -61,7 +61,7 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
 
         // res 변환
         Member member = memberRepository.findById(findPostReqDTO.getMemberId()).get();
-
+//        Member platform = memberRepository.findBy
         return setFindPostDTO(member, posts);
     }
 
@@ -97,7 +97,7 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
             MemberViewPost viewMemberAndPost = memberViewPostRepository.findTopByMemberAndPostOrderByViewDateDesc(member, post);
             if(viewMemberAndPost == null) isView = Boolean.FALSE;
 
-            findPostDTOList.add(new FindPostDTO(member, post, isView, isLike));
+            findPostDTOList.add(new FindPostDTO(post.getMember(), post, isView, isLike));
         }
 
         return new FindPostResDTO(findPostDTOList, posts.hasNext());
