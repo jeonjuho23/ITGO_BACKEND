@@ -27,7 +27,7 @@ public class ScrapedPostViewResDTO {
 
     private String deviceName;
     private String manufacturer;
-    private Long detailId;
+    private String detailId;
 
     private Boolean isLike;
 

@@ -21,9 +21,9 @@ public class Device {
 
     // 기기의 자세한 제원을 저장한 NoSQL DB의 id값
     @Column(name = "detail_id")
-    private Long detailId;
+    private String detailId;
 
-    // 카테고리 이름
+    // 카테고리
     private int category;
 
 
