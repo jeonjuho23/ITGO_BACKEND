@@ -30,7 +30,7 @@ public class DeviceServiceImpl implements DeviceService{
     public FindDeviceListResDTO findDeviceList(FindDeviceListReqDTO findDeviceListReqDTO) {
 
         Pageable pageable = PageRequest.of(findDeviceListReqDTO.getPage(), findDeviceListReqDTO.getSize());
-        Slice<Device> deviceSlice = deviceRepository.findSlice(pageable);
+        Slice<Device> deviceSlice = deviceRepository.findSliceBy(pageable);
 
         List<FindDeviceDTO> findDeviceList = new ArrayList<>();
         for (Device device: deviceSlice.getContent()){
