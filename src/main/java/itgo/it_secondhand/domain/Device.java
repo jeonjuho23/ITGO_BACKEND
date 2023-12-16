@@ -14,7 +14,6 @@ public class Device {
     @Column(name = "device_id")
     private Long id;
 
-    private String manufacturer;
     private String deviceName;
     private int launchPrice;
     private LocalDateTime releaseDate;
@@ -23,22 +22,22 @@ public class Device {
     @Column(name = "detail_id")
     private String detailId;
 
-    // 카테고리
-    private int category;
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     protected Device(){}
 
-    private Device(String manufacturer, String deviceName, int launchPrice, int category, LocalDateTime releaseDate){
-        this.manufacturer = manufacturer;
+    private Device(String deviceName, int launchPrice, Category category, LocalDateTime releaseDate){
         this.deviceName = deviceName;
         this.launchPrice = launchPrice;
         this.category = category;
         this.releaseDate = releaseDate;
     }
+
     //== 생성 메서드 ==//
-    public static Device createDevice(String manufacturer, String deviceName, int launchPrice, int category, LocalDateTime releaseDate) {
-        return new Device(manufacturer, deviceName, launchPrice, category, releaseDate);
+    public static Device createDevice(String deviceName, int launchPrice, Category category, LocalDateTime releaseDate) {
+        return new Device(deviceName, launchPrice, category, releaseDate);
     }
 
 

@@ -1,14 +1,12 @@
 package itgo.it_secondhand.service.search;
 
+import itgo.it_secondhand.domain.Category;
 import itgo.it_secondhand.domain.Device;
 import itgo.it_secondhand.domain.Member;
 import itgo.it_secondhand.domain.SecondhandScrapedPost;
 import itgo.it_secondhand.domain.value.Location;
 import itgo.it_secondhand.enum_.SortBy;
-import itgo.it_secondhand.repository.DeviceRepository;
-import itgo.it_secondhand.repository.KeywordRepository;
-import itgo.it_secondhand.repository.MemberRepository;
-import itgo.it_secondhand.repository.SecondhandPostRepository;
+import itgo.it_secondhand.repository.*;
 import itgo.it_secondhand.service.post.DTO.FindPostDTO;
 import itgo.it_secondhand.service.search.DTO.RecentSearchReqDTO;
 import itgo.it_secondhand.service.search.DTO.SearchReqDTO;
@@ -52,7 +50,10 @@ class SearchServiceImplTest {
     SecondhandPostRepository secondhandPostRepository;
     @Autowired
     EntityManager em;
-
+    @Autowired
+    CategoryRepository categoryRepository;
+    @Autowired
+    CategoryBySiteRepository categoryBySiteRepository;
 
     @Order(2)
     @Test
@@ -140,14 +141,16 @@ class SearchServiceImplTest {
 
         List<Device> deviceList= new ArrayList<>();
         List<SecondhandScrapedPost> postList = new ArrayList<>();
+        Category category = Category.createCategory("제조사", "기기 종류");
 
         for (int i = 0; i < 30; i++) {
-            Device device = Device.createDevice("manufacturer", "deviceName" + i, 1000, 1150, LocalDateTime.now());
+            Device device = Device.createDevice("deviceName" + i, 1000, category, LocalDateTime.now());
             deviceList.add(device);
             postList.add(SecondhandScrapedPost.createPost(member, "title"+i, "content", "imgFolderAddress", device, 1000, "postUrl", new Location("city","street","zipcode")));
         }
 
         memberRepository.saveAndFlush(member);
+        categoryRepository.saveAndFlush(category);
         deviceRepository.saveAllAndFlush(deviceList);
         secondhandPostRepository.saveAllAndFlush(postList);
 

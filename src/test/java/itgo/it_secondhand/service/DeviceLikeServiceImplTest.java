@@ -1,5 +1,6 @@
 package itgo.it_secondhand.service;
 
+import itgo.it_secondhand.domain.Category;
 import itgo.it_secondhand.domain.Device;
 import itgo.it_secondhand.domain.Member;
 import itgo.it_secondhand.domain.MemberLikeDevice;
@@ -47,7 +48,9 @@ class DeviceLikeServiceImplTest {
 
     public LikeReqDTO createLike() {
         Member member = Member.createMember("phone", "name", "imgAddress", new Location("city", "street", "zipcode"));
-        Device device = Device.createDevice("manufacturer", "deviceName", 1000, 1150, LocalDateTime.now());
+
+        Category category = Category.createCategory("제조사","기기 종류");
+        Device device = Device.createDevice("deviceName", 1000, category, LocalDateTime.now());
 
         memberRepository.save(member);
         deviceRepository.save(device);

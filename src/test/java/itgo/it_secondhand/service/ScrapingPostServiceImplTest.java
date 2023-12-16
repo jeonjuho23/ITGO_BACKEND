@@ -1,5 +1,6 @@
 package itgo.it_secondhand.service;
 
+import itgo.it_secondhand.domain.Category;
 import itgo.it_secondhand.domain.Device;
 import itgo.it_secondhand.domain.Member;
 import itgo.it_secondhand.domain.SecondhandScrapedPost;
@@ -114,7 +115,8 @@ class ScrapingPostServiceImplTest {
     public ViewTestDTO createMemberAndPost(){
         Location location = new Location("city", "street", "zipcode");
         Member member = Member.createMember("phone", "name", "address", location);
-        Device device = Device.createDevice("manufacturer", "deviceName", 1000,1150, LocalDateTime.now());
+        Category category = Category.createCategory("제조사", "기기 종류");
+        Device device = Device.createDevice("deviceName", 1000,category, LocalDateTime.now());
         SecondhandScrapedPost secondhandScrapedPost = SecondhandScrapedPost.
                 createPost(member,"postTitle","postContent","imgFolderAddress",
                         device,1000,"postUrl",location);

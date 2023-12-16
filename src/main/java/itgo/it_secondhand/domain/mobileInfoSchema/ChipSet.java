@@ -1,4 +1,4 @@
-package itgo.it_secondhand.domain.DeviceInfoSchema;
+package itgo.it_secondhand.domain.mobileInfoSchema;
 
 import lombok.Data;
 

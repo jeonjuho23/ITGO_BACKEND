@@ -19,7 +19,7 @@ public class FindDeviceDTO {
     public FindDeviceDTO(Device device){
         this.id = device.getId();
         this.deviceName = device.getDeviceName();
-        this.manufacturer = device.getManufacturer();
+        this.manufacturer = device.getCategory().getManufacturer();
         this.launchPrice = device.getLaunchPrice();
         this.releaseDate = device.getReleaseDate();
         this.detailId = device.getDetailId();

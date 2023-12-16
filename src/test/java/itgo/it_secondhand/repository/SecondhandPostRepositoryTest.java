@@ -1,9 +1,6 @@
 package itgo.it_secondhand.repository;
 
-import itgo.it_secondhand.domain.Device;
-import itgo.it_secondhand.domain.Member;
-import itgo.it_secondhand.domain.MemberLikePost;
-import itgo.it_secondhand.domain.SecondhandScrapedPost;
+import itgo.it_secondhand.domain.*;
 import itgo.it_secondhand.domain.value.Location;
 import itgo.it_secondhand.enum_.SortBy;
 import itgo.it_secondhand.service.like.DTO.LikeReqDTO;
@@ -49,7 +46,8 @@ class SecondhandPostRepositoryTest {
     SecondhandPostRepository secondhandPostRepository;
     @Autowired
     PostLikeServiceImpl postLikeService;
-
+    @Autowired
+    CategoryRepository categoryRepository;
     @Autowired
     EntityManager em;
 
@@ -60,13 +58,16 @@ class SecondhandPostRepositoryTest {
 
         List<Device> deviceList= new ArrayList<>();
         List<SecondhandScrapedPost> postList = new ArrayList<>();
+        Category category = Category.createCategory("제조사","기기 종류");
+
 
         for (int i = 0; i < 30; i++) {
-            Device device = Device.createDevice("manufacturer", "deviceName" + i, 1000, 1150, LocalDateTime.now());
+            Device device = Device.createDevice("deviceName" + i, 1000, category, LocalDateTime.now());
             deviceList.add(device);
             postList.add(SecondhandScrapedPost.createPost(member, "title"+i, "content", "imgFolderAddress", device, 1000, "postUrl",new Location("city","street","zipcode")));
         }
 
+        categoryRepository.saveAndFlush(category);
         deviceRepository.saveAll(deviceList);
         secondhandPostRepository.saveAll(postList);
 

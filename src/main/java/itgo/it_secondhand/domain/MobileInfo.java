@@ -1,16 +1,16 @@
 package itgo.it_secondhand.domain;
 
-import itgo.it_secondhand.domain.DeviceInfoSchema.*;
+import itgo.it_secondhand.domain.mobileInfoSchema.*;
 import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Document(collection = "device")
+@Document(collection = "mobile")
 @Builder
 @Data
-public class DeviceInfo {
+public class MobileInfo {
 
     @Id
     private String id;

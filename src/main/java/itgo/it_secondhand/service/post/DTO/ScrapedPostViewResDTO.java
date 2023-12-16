@@ -46,7 +46,7 @@ public class ScrapedPostViewResDTO {
         this.imgAddress = post.getImgFolderAddress();
         this.memberName = member.getName();
         this.deviceName = device.getDeviceName();
-        this.manufacturer = device.getManufacturer();
+        this.manufacturer = device.getCategory().getManufacturer();
         this.detailId = device.getDetailId();
         this.isLike = isLike;
 
