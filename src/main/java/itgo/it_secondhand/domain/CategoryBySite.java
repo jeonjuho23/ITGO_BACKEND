@@ -18,5 +18,16 @@ public class CategoryBySite {
     private String siteName;
     private String categoryBySite;
 
+    protected CategoryBySite(){}
+
+    private CategoryBySite(Category category, String siteName, String categoryBySite){
+        this.category = category;
+        this.siteName = siteName;
+        this.categoryBySite = categoryBySite;
+    }
+
+    public static CategoryBySite createCategoryBySite(Category category, String siteName, String categoryBySite){
+        return new CategoryBySite(category, siteName, categoryBySite);
+    }
 
 }

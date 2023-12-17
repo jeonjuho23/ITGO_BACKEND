@@ -26,4 +26,6 @@ public interface SecondhandPostRepository extends JpaRepository<SecondhandScrape
     @EntityGraph(attributePaths = {"device","member"})
     Slice<SecondhandScrapedPost> findByDevice_DeviceNameContaining(String keyword, Pageable pageable);
 
+    Slice<SecondhandScrapedPost> findByDevice_Category_Id(Long categoryId, Pageable pageable);
+
 }

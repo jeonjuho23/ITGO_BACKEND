@@ -81,8 +81,19 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
         return setFindPostDTO(member, likePosts);
     }
 
+    @Override
+    public FindPostResDTO findScrapingPostListByCategory(FindPostByCategoryReqDTO findPostByCategoryReqDTO) {
+        // pageable 구현체 생성
+        Pageable pageable = PageRequest.of(findPostByCategoryReqDTO.getPage(), findPostByCategoryReqDTO.getSize(), Sort.by(findPostByCategoryReqDTO.getSortBy().label()));
 
-    // 추후에 꼭 리팩터링!!!
+        Member member = memberRepository.findById(findPostByCategoryReqDTO.getMemberId()).orElseThrow();
+
+        Slice<SecondhandScrapedPost> posts = secondhandPostRepository.findByDevice_Category_Id(findPostByCategoryReqDTO.getCategoryId(), pageable);
+
+        return setFindPostDTO(member, posts);
+    }
+
+
     public FindPostResDTO setFindPostDTO(Member member, Slice<SecondhandScrapedPost> posts){
         List<FindPostDTO> findPostDTOList = new ArrayList<>();
 

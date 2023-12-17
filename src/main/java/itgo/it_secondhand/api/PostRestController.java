@@ -1,10 +1,7 @@
 package itgo.it_secondhand.api;
 
 import itgo.it_secondhand.enum_.SortBy;
-import itgo.it_secondhand.service.post.DTO.FindPostReqDTO;
-import itgo.it_secondhand.service.post.DTO.FindPostResDTO;
-import itgo.it_secondhand.service.post.DTO.PostViewReqDTO;
-import itgo.it_secondhand.service.post.DTO.ScrapedPostViewResDTO;
+import itgo.it_secondhand.service.post.DTO.*;
 import itgo.it_secondhand.service.post.ScrapingPostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +41,7 @@ public class PostRestController {
 
     @GetMapping("/find/like/list")
     public ResponseEntity<FindPostResDTO> findLikedPostList(@RequestParam Long memberId
-            , @RequestParam int page, @RequestParam int size, SortBy sortBy){
+            , @RequestParam int page, @RequestParam int size, @RequestParam SortBy sortBy){
 
         FindPostReqDTO reqDTO = FindPostReqDTO.builder()
                 .page(page)
@@ -71,5 +68,23 @@ public class PostRestController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    @GetMapping("/find/by/category")
+    public ResponseEntity<FindPostResDTO> findPostByCategory(@RequestParam Long categoryId, @RequestParam Long memberId,
+                            @RequestParam int size, @RequestParam int page, @RequestParam SortBy sortBy){
 
+        FindPostByCategoryReqDTO reqDTO = FindPostByCategoryReqDTO.builder()
+                .categoryId(categoryId)
+                .memberId(memberId)
+                .size(size).page(page).sortBy(sortBy)
+                .build();
+
+        FindPostResDTO scrapingPostListByCategory = scrapingPostService.findScrapingPostListByCategory(reqDTO);
+
+        return ResponseEntity.ok(
+                FindPostResDTO.builder()
+                        .posts(scrapingPostListByCategory.getPosts())
+                        .hasNext(scrapingPostListByCategory.getHasNext())
+                        .build()
+        );
+    }
 }
