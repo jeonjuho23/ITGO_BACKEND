@@ -10,4 +10,5 @@ public interface ScrapingPostService {
     public FindPostResDTO findALlScrapingPostList(FindPostReqDTO findPostReqDTO);
     public FindPostResDTO findLikeScrapingPostList(FindPostReqDTO findPostReqDTO);
     public FindPostResDTO findScrapingPostListByCategory(FindPostByCategoryReqDTO findPostByCategoryReqDTO);
+    FindPostResDTO findScrapingPostListByLocation(FindPostByLocationReqDTO findPostByLocationReqDTO);
 }

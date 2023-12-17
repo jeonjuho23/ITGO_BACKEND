@@ -5,7 +5,7 @@ import itgo.it_secondhand.domain.Device;
 import itgo.it_secondhand.domain.Member;
 import itgo.it_secondhand.domain.MemberLikeDevice;
 import itgo.it_secondhand.domain.value.Location;
-import itgo.it_secondhand.service.like.DTO.DeviceLikeListResDTO;
+import itgo.it_secondhand.service.like.DTO.DeviceLikeResDTO;
 import itgo.it_secondhand.service.like.DTO.LikeReqDTO;
 import itgo.it_secondhand.repository.DeviceRepository;
 import itgo.it_secondhand.repository.MemberLikeDeviceRepository;
@@ -117,7 +117,7 @@ class DeviceLikeServiceImplTest {
         Long memberId = 1L;
 
         // when
-        List<DeviceLikeListResDTO> checkList = deviceAlarmService.checkList(memberId);
+        List<DeviceLikeResDTO> checkList = deviceAlarmService.checkList(memberId);
 
         // then
 

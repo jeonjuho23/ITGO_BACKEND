@@ -27,8 +27,8 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
     @Override
     public ScrapedPostViewResDTO viewScrapingPost(PostViewReqDTO postViewReqDTO) {
         // 엔티티 조회
-        Member member = memberRepository.findById(postViewReqDTO.getMemberId()).get();
-        SecondhandScrapedPost secondhandScrapedPost = secondhandPostRepository.findById(postViewReqDTO.getPostId()).get();
+        Member member = memberRepository.findById(postViewReqDTO.getMemberId()).orElseThrow();
+        SecondhandScrapedPost secondhandScrapedPost = secondhandPostRepository.findById(postViewReqDTO.getPostId()).orElseThrow();
 
 
         // 첫 조회면 데이터 생성
@@ -60,14 +60,14 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
         Slice<SecondhandScrapedPost> posts = secondhandPostRepository.findSliceBy(pageable);
 
         // res 변환
-        Member member = memberRepository.findById(findPostReqDTO.getMemberId()).get();
+        Member member = memberRepository.findById(findPostReqDTO.getMemberId()).orElseThrow();
 //        Member platform = memberRepository.findBy
         return setFindPostDTO(member, posts);
     }
 
     @Override
     public FindPostResDTO findLikeScrapingPostList(FindPostReqDTO findPostReqDTO) {
-        Member member = memberRepository.findById(findPostReqDTO.getMemberId()).get();
+        Member member = memberRepository.findById(findPostReqDTO.getMemberId()).orElseThrow();
 
         // pageable 구현체 생성
         Pageable pageable = PageRequest.of(findPostReqDTO.getPage(), findPostReqDTO.getSize(), Sort.by(findPostReqDTO.getSortBy().label()));
@@ -89,6 +89,18 @@ public class ScrapingPostServiceImpl implements ScrapingPostService {
         Member member = memberRepository.findById(findPostByCategoryReqDTO.getMemberId()).orElseThrow();
 
         Slice<SecondhandScrapedPost> posts = secondhandPostRepository.findByDevice_Category_Id(findPostByCategoryReqDTO.getCategoryId(), pageable);
+
+        return setFindPostDTO(member, posts);
+    }
+
+    @Override
+    public FindPostResDTO findScrapingPostListByLocation(FindPostByLocationReqDTO findPostByLocationReqDTO) {
+        // pageable 구현체 생성
+        Pageable pageable = PageRequest.of(findPostByLocationReqDTO.getPage(), findPostByLocationReqDTO.getSize(), Sort.by(findPostByLocationReqDTO.getSortBy().label()));
+
+        Member member = memberRepository.findById(findPostByLocationReqDTO.getMemberId()).orElseThrow();
+
+        Slice<SecondhandScrapedPost> posts = secondhandPostRepository.findByLocation_City(findPostByLocationReqDTO.getCity(), pageable);
 
         return setFindPostDTO(member, posts);
     }

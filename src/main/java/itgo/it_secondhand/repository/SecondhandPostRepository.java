@@ -7,6 +7,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.JpaEntityGraph;
 import org.springframework.data.repository.query.Param;
 
 
@@ -27,5 +28,7 @@ public interface SecondhandPostRepository extends JpaRepository<SecondhandScrape
     Slice<SecondhandScrapedPost> findByDevice_DeviceNameContaining(String keyword, Pageable pageable);
 
     Slice<SecondhandScrapedPost> findByDevice_Category_Id(Long categoryId, Pageable pageable);
+
+    Slice<SecondhandScrapedPost> findByLocation_City(String city, Pageable pageable);
 
 }

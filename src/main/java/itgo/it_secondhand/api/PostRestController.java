@@ -1,5 +1,6 @@
 package itgo.it_secondhand.api;
 
+import itgo.it_secondhand.domain.value.Location;
 import itgo.it_secondhand.enum_.SortBy;
 import itgo.it_secondhand.service.post.DTO.*;
 import itgo.it_secondhand.service.post.ScrapingPostService;
@@ -84,7 +85,28 @@ public class PostRestController {
                 FindPostResDTO.builder()
                         .posts(scrapingPostListByCategory.getPosts())
                         .hasNext(scrapingPostListByCategory.getHasNext())
-                        .build()
-        );
+                        .build());
     }
+
+    @GetMapping("/find/by/city")
+    public ResponseEntity<FindPostResDTO> findPostByLocation(@RequestParam String city, @RequestParam Long memberId,
+                                                             @RequestParam int size, @RequestParam int page, @RequestParam SortBy sortBy){
+
+        FindPostByLocationReqDTO reqDTO = FindPostByLocationReqDTO.builder()
+                .city(city)
+                .memberId(memberId)
+                .size(size).page(page).sortBy(sortBy)
+                .build();
+
+        FindPostResDTO scrapingPostListByCategory = scrapingPostService.findScrapingPostListByLocation(reqDTO);
+
+        return ResponseEntity.ok(
+                FindPostResDTO.builder()
+                        .posts(scrapingPostListByCategory.getPosts())
+                        .hasNext(scrapingPostListByCategory.getHasNext())
+                        .build());
+    }
+
+
+
 }

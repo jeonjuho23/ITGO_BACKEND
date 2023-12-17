@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PostLikeServiceImpl implements LikeService<PostResDTO> {
+public class PostLikeServiceImpl implements LikeService<PostResDTO, Long> {
 
     private final MemberRepository memberRepository;
     private final PostRepository<Post> postRepository;
@@ -28,10 +28,10 @@ public class PostLikeServiceImpl implements LikeService<PostResDTO> {
 
     @Transactional
     @Override
-    public Long regist(LikeReqDTO likeReqDTO) {
+    public Long regist(LikeReqDTO<Long> likeReqDTO) {
         // 엔티티 조회
-        Member member = memberRepository.findById(likeReqDTO.getMemberId()).get();
-        Post post = postRepository.findById(likeReqDTO.getLikedThingId()).get();
+        Member member = memberRepository.findById(likeReqDTO.getMemberId()).orElseThrow();
+        Post post = postRepository.findById(likeReqDTO.getLikedThingId()).orElseThrow();
 
         // 좋아요 생성
         MemberLikePost memberLikePost = MemberLikePost.createMemberLikePost(member, post);
@@ -44,10 +44,10 @@ public class PostLikeServiceImpl implements LikeService<PostResDTO> {
 
     @Transactional
     @Override
-    public void delete(LikeReqDTO likeReqDTO) {
+    public void delete(LikeReqDTO<Long> likeReqDTO) {
         // 엔티티 조회
-        Member member = memberRepository.findById(likeReqDTO.getMemberId()).get();
-        Post post = postRepository.findById(likeReqDTO.getLikedThingId()).get();
+        Member member = memberRepository.findById(likeReqDTO.getMemberId()).orElseThrow();
+        Post post = postRepository.findById(likeReqDTO.getLikedThingId()).orElseThrow();
         MemberLikePost memberLikePost = memberLikePostRepository.findByMemberAndPost(member, post);
 
         // 좋아요 삭제

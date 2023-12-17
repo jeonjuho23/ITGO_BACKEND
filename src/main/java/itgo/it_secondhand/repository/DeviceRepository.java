@@ -11,4 +11,6 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
     Slice<Device> findSliceBy(Pageable pageable);
 
     Slice<Device> findSliceByCategory_Id(Pageable pageable, Long category_id);
+
+    List<Device> findByDeviceNameContaining(String keyword);
 }

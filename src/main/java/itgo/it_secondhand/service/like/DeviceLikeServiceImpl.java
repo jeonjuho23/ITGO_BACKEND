@@ -4,7 +4,8 @@ package itgo.it_secondhand.service.like;
 import itgo.it_secondhand.domain.Device;
 import itgo.it_secondhand.domain.Member;
 import itgo.it_secondhand.domain.MemberLikeDevice;
-import itgo.it_secondhand.service.like.DTO.DeviceLikeListResDTO;
+import itgo.it_secondhand.service.like.DTO.DeviceLikeResDTO;
+import itgo.it_secondhand.service.like.DTO.DeviceResDTO;
 import itgo.it_secondhand.service.like.DTO.LikeReqDTO;
 import itgo.it_secondhand.repository.DeviceRepository;
 import itgo.it_secondhand.repository.MemberLikeDeviceRepository;
@@ -20,7 +21,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class DeviceLikeServiceImpl implements LikeService<DeviceLikeListResDTO> {
+public class DeviceLikeServiceImpl implements LikeService<DeviceLikeResDTO, Long> {
 
     private final DeviceRepository deviceRepository;
     private final MemberRepository memberRepository;
@@ -29,12 +30,11 @@ public class DeviceLikeServiceImpl implements LikeService<DeviceLikeListResDTO> 
 
     @Transactional
     @Override
-    public Long regist(LikeReqDTO likeReqDTO) {
+    public Long regist(LikeReqDTO<Long> likeReqDTO) {
 
         // 엔티티 조회
-        // 여기서는 Optional의 null값 에외처리가 필요 없을까?
-        Member member = memberRepository.findById(likeReqDTO.getMemberId()).get();
-        Device device = deviceRepository.findById(likeReqDTO.getLikedThingId()).get();
+        Member member = memberRepository.findById(likeReqDTO.getMemberId()).orElseThrow();
+        Device device = deviceRepository.findById(likeReqDTO.getLikedThingId()).orElseThrow();
 
         // 좋아요 생성
         MemberLikeDevice memberLikeDevice = MemberLikeDevice.createMemberLikeDevice(member, device);
@@ -47,7 +47,7 @@ public class DeviceLikeServiceImpl implements LikeService<DeviceLikeListResDTO> 
 
     @Transactional
     @Override
-    public void  delete(LikeReqDTO likeReqDTO) {
+    public void  delete(LikeReqDTO<Long> likeReqDTO) {
         // 엔티티 조회
         Member member;
         Device device;
@@ -68,15 +68,29 @@ public class DeviceLikeServiceImpl implements LikeService<DeviceLikeListResDTO> 
     }
 
     @Override
-    public List<DeviceLikeListResDTO> checkList(Long memberId) {
+    public List<DeviceLikeResDTO> checkList(Long memberId) {
 
         List<MemberLikeDevice> memberLikeDeviceList = memberLikeDeviceRepository.findAllByMember_Id(memberId);
 
-        List<DeviceLikeListResDTO> deviceLikeListResDTOList = new ArrayList<>();
+        List<DeviceLikeResDTO> deviceLikeListResDTO = new ArrayList<>();
         for(MemberLikeDevice memberLikeDevice : memberLikeDeviceList){
-            deviceLikeListResDTOList.add(new DeviceLikeListResDTO(memberLikeDevice.getDevice().getId(), memberLikeDevice.getDevice().getDeviceName()));
+            deviceLikeListResDTO.add(new DeviceLikeResDTO(memberLikeDevice.getDevice().getId(), memberLikeDevice.getDevice().getDeviceName()));
         }
 
-        return deviceLikeListResDTOList;
+        return deviceLikeListResDTO;
+    }
+
+    public List<DeviceResDTO> findByKeyword(String keyword){
+
+        List<Device> deviceList = deviceRepository.findByDeviceNameContaining(keyword);
+
+        List<DeviceResDTO> res = new ArrayList<>();
+        for(Device device: deviceList){
+            res.add(DeviceResDTO.builder()
+                    .id(device.getId())
+                    .deviceName(device.getDeviceName()).build());
+        }
+
+        return res;
     }
 }

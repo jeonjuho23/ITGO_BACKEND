@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class DeviceLikeListResDTO {
+public class DeviceLikeResDTO {
     private Long deviceId;
     private String deviceName;
 }
