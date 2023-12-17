@@ -52,8 +52,11 @@ class SecondhandPostRepositoryTest {
     EntityManager em;
 
 
+    // 멤버, 카테고리, 기기, 게시글의 임시 데이터 저장
     void fullDataSetting() {
+        Member joongna = Member.createMember("","joongna","",new Location("","",""));
         Member member = Member.createMember("phone", "name", "imgAddress", new Location("city", "street", "zipcode"));
+        memberRepository.save(joongna);
         memberRepository.save(member);
 
         List<Device> deviceList= new ArrayList<>();
@@ -67,10 +70,9 @@ class SecondhandPostRepositoryTest {
             postList.add(SecondhandScrapedPost.createPost(member, "title"+i, "content", "imgFolderAddress", device, 1000, "postUrl",new Location("city","street","zipcode")));
         }
 
-        categoryRepository.saveAndFlush(category);
+        categoryRepository.save(category);
         deviceRepository.saveAll(deviceList);
         secondhandPostRepository.saveAll(postList);
-
 
         em.flush();
         em.clear();
