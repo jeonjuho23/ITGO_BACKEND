@@ -63,6 +63,7 @@ class SecondhandPostRepositoryTest {
         List<SecondhandScrapedPost> postList = new ArrayList<>();
         Category category = Category.createCategory("제조사","기기 종류");
 
+        deviceList.add(Device.createDevice("기타", 0, category, LocalDateTime.now()));
 
         for (int i = 0; i < 30; i++) {
             Device device = Device.createDevice("deviceName" + i, 1000, category, LocalDateTime.now());
