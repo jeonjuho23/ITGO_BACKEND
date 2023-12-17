@@ -155,8 +155,12 @@ class ScrapingPostServiceImplTest {
         categoryList.add(etc_tablet);
         categoryList.add(etc_laptop);
 
+        Category etc = categoryRepository.findByManufacturer("기타");
+
         // category by 중고나라
         List<CategoryBySite> categoryBySiteList = new ArrayList<>();
+
+        categoryBySiteList.add(CategoryBySite.createCategoryBySite(etc, "중고나라", "1150"));
 
         categoryBySiteList.add(CategoryBySite.createCategoryBySite(sam_mobile, "중고나라", "1150"));
         categoryBySiteList.add(CategoryBySite.createCategoryBySite(sam_tablet, "중고나라", "1154"));
