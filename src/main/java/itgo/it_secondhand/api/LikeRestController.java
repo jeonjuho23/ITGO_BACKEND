@@ -59,7 +59,7 @@ public class LikeRestController {
     }
 
     @GetMapping("/regist/location")
-    public ResponseEntity<RegistLikeResponseDTO> registLocation(Long memberId, String locationId){
+    public ResponseEntity<RegistLikeResponseDTO> registLocation(@RequestParam Long memberId, @RequestParam String locationId){
 
         LikeReqDTO<String> reqDTO = LikeReqDTO.<String>builder()
                 .memberId(memberId).likedThingId(locationId).build();
@@ -107,7 +107,7 @@ public class LikeRestController {
     }
 
     @PostMapping("/delete/location")
-    public ResponseEntity<DeleteLikeResponseDTO> deleteLocation(Long memberId, Long locationId){
+    public ResponseEntity<DeleteLikeResponseDTO> deleteLocation(@RequestParam Long memberId, @RequestParam Long locationId){
 
         LikeReqDTO<Long> reqDTO = LikeReqDTO.<Long>builder()
                 .memberId(memberId)
