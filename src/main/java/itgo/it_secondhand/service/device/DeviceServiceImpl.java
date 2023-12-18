@@ -8,6 +8,7 @@ import itgo.it_secondhand.repository.DeviceRepository;
 import itgo.it_secondhand.repository.MobileInfoRepository;
 import itgo.it_secondhand.service.device.DTO.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -21,6 +22,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class DeviceServiceImpl implements DeviceService{
 
     private final DeviceRepository deviceRepository;
@@ -34,14 +36,7 @@ public class DeviceServiceImpl implements DeviceService{
         Pageable pageable = PageRequest.of(findDeviceListReqDTO.getPage(), findDeviceListReqDTO.getSize());
         Slice<Device> deviceSlice = deviceRepository.findSliceBy(pageable);
 
-        List<FindDeviceDTO> findDeviceList = new ArrayList<>();
-        for (Device device: deviceSlice.getContent()){
-            findDeviceList.add(new FindDeviceDTO(device));
-        }
-
-        return FindDeviceListResDTO.builder()
-                .deviceList(findDeviceList)
-                .hasNext(deviceSlice.hasNext()).build();
+        return getFindDeviceListResDTO(deviceSlice);
     }
 
     @Override
@@ -50,14 +45,25 @@ public class DeviceServiceImpl implements DeviceService{
         Pageable pageable = PageRequest.of(findDeviceListByCategoryReqDTO.getPage(), findDeviceListByCategoryReqDTO.getSize());
         Slice<Device> deviceSlice = deviceRepository.findSliceByCategory_Id(pageable, findDeviceListByCategoryReqDTO.getCategory());
 
+        return getFindDeviceListResDTO(deviceSlice);
+    }
+
+    private FindDeviceListResDTO getFindDeviceListResDTO(Slice<Device> deviceSlice) {
         List<FindDeviceDTO> findDeviceList = new ArrayList<>();
         for (Device device: deviceSlice.getContent()){
-            findDeviceList.add(new FindDeviceDTO(device));
+            String image = "";
+            if(device.getDetailId() != null) {
+                MobileInfo mobileInfo = mobileInfoRepository.findById(device.getDetailId()).orElse(MobileInfo.builder().build());
+                image = mobileInfo.getImage();
+            }
+            findDeviceList.add(new FindDeviceDTO(device, image));
         }
 
         return FindDeviceListResDTO.builder()
                 .deviceList(findDeviceList)
-                .hasNext(deviceSlice.hasNext()).build();    }
+                .hasNext(deviceSlice.hasNext()).build();
+    }
+
 
     @Override
     public FindDeviceInfoResDTO<MobileInfo> findMobileInfo(FindDeviceInfoReqDTO findDeviceInfoReqDTO) {

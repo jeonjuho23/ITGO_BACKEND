@@ -4,6 +4,7 @@ import itgo.it_secondhand.domain.mobileInfoSchema.*;
 import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 

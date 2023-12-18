@@ -28,16 +28,17 @@ public class Device {
 
     protected Device(){}
 
-    private Device(String deviceName, int launchPrice, Category category, LocalDateTime releaseDate){
+    private Device(String deviceName, int launchPrice, Category category, LocalDateTime releaseDate, String detailId){
         this.deviceName = deviceName;
         this.launchPrice = launchPrice;
         this.category = category;
         this.releaseDate = releaseDate;
+        this.detailId = detailId;
     }
 
     //== 생성 메서드 ==//
-    public static Device createDevice(String deviceName, int launchPrice, Category category, LocalDateTime releaseDate) {
-        return new Device(deviceName, launchPrice, category, releaseDate);
+    public static Device createDevice(String deviceName, int launchPrice, Category category, LocalDateTime releaseDate, String detailId) {
+        return new Device(deviceName, launchPrice, category, releaseDate, detailId);
     }
 
 

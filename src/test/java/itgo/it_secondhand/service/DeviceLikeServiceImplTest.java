@@ -50,7 +50,7 @@ class DeviceLikeServiceImplTest {
         Member member = Member.createMember("phone", "name", "imgAddress", new Location("city", "street", "zipcode"));
 
         Category category = Category.createCategory("제조사","기기 종류");
-        Device device = Device.createDevice("deviceName", 1000, category, LocalDateTime.now());
+        Device device = Device.createDevice("deviceName", 1000, category, LocalDateTime.now(),"");
 
         memberRepository.save(member);
         deviceRepository.save(device);

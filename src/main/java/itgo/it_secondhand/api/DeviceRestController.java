@@ -38,6 +38,7 @@ public class DeviceRestController {
         return ResponseEntity.ok(
                 FindDeviceListResponseDTO.builder()
                         .deviceList(deviceList.getDeviceList())
+                        .hasNext(deviceList.getHasNext())
                         .build());
     }
 
@@ -55,6 +56,7 @@ public class DeviceRestController {
         return ResponseEntity.ok(
                 FindDeviceListResponseDTO.builder()
                         .deviceList(deviceList.getDeviceList())
+                        .hasNext(deviceList.getHasNext())
                         .build());
     }
 

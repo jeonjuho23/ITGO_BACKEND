@@ -144,7 +144,7 @@ class SearchServiceImplTest {
         Category category = Category.createCategory("제조사", "기기 종류");
 
         for (int i = 0; i < 30; i++) {
-            Device device = Device.createDevice("deviceName" + i, 1000, category, LocalDateTime.now());
+            Device device = Device.createDevice("deviceName" + i, 1000, category, LocalDateTime.now(),"");
             deviceList.add(device);
             postList.add(SecondhandScrapedPost.createPost(member, "title"+i, "content", "imgFolderAddress", device, 1000, "postUrl", new Location("city","street","zipcode")));
         }

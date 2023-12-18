@@ -13,16 +13,18 @@ public class FindDeviceDTO {
     private int launchPrice;
     private LocalDateTime releaseDate;
     private String detailId;
+    private String image;
 
     protected FindDeviceDTO(){}
 
-    public FindDeviceDTO(Device device){
+    public FindDeviceDTO(Device device, String image){
         this.id = device.getId();
         this.deviceName = device.getDeviceName();
         this.manufacturer = device.getCategory().getManufacturer();
         this.launchPrice = device.getLaunchPrice();
         this.releaseDate = device.getReleaseDate();
         this.detailId = device.getDetailId();
+        this.image = image;
     }
 
 
