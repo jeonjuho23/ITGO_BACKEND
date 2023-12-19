@@ -25,7 +25,6 @@ public class DeviceLikeServiceImpl implements LikeService<DeviceLikeResDTO, Long
 
     private final DeviceRepository deviceRepository;
     private final MemberRepository memberRepository;
-    //
     private final MemberLikeDeviceRepository memberLikeDeviceRepository;
 
     @Transactional
@@ -49,16 +48,8 @@ public class DeviceLikeServiceImpl implements LikeService<DeviceLikeResDTO, Long
     @Override
     public void  delete(LikeReqDTO<Long> likeReqDTO) {
         // 엔티티 조회
-        Member member;
-        Device device;
-        try {
-            member = memberRepository.findById(likeReqDTO.getMemberId())
-                    .orElseThrow(() -> new IllegalArgumentException("no such data"));
-            device = deviceRepository.findById(likeReqDTO.getLikedThingId())
-                    .orElseThrow(() -> new IllegalArgumentException("no such data"));
-        } catch (IllegalArgumentException e){
-            return;
-        }
+        Member member = memberRepository.findById(likeReqDTO.getMemberId()).orElseThrow();
+        Device device = deviceRepository.findById(likeReqDTO.getLikedThingId()).orElseThrow();
 
         // 좋아요 삭제 후 저장
         MemberLikeDevice memberLikeDevice = memberLikeDeviceRepository.findByMemberAndDevice(member, device);
