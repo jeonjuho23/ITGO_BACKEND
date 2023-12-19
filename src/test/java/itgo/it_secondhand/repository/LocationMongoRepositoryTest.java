@@ -107,5 +107,15 @@ class LocationMongoRepositoryTest {
         assertEquals(locationMongoList.size(), res.size(), "삽입된 데이터와 그 확인 데이터는 같다.");
     }
 
+    @Test
+    public void 전체삭제() throws Exception {
+        // given
+
+        // when
+        locationMongoRepository.deleteAll();
+        // then
+
+    }
+
 
 }

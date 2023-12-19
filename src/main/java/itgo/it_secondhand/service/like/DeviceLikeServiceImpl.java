@@ -82,7 +82,7 @@ public class DeviceLikeServiceImpl implements LikeService<DeviceLikeResDTO, Long
 
     public List<DeviceResDTO> findByKeyword(String keyword){
 
-        List<Device> deviceList = deviceRepository.findByDeviceNameContaining(keyword);
+        List<Device> deviceList = deviceRepository.searchDeviceByDeviceName(keyword.replace(" ", ""));
 
         List<DeviceResDTO> res = new ArrayList<>();
         for(Device device: deviceList){

@@ -3,9 +3,7 @@ package itgo.it_secondhand.service.search;
 import itgo.it_secondhand.domain.*;
 import itgo.it_secondhand.enum_.SortBy;
 import itgo.it_secondhand.repository.*;
-import itgo.it_secondhand.service.post.DTO.FindPostDTO;
 import itgo.it_secondhand.service.post.DTO.FindPostResDTO;
-import itgo.it_secondhand.service.post.ScrapingPostService;
 import itgo.it_secondhand.service.post.ScrapingPostServiceImpl;
 import itgo.it_secondhand.service.search.DTO.*;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +39,7 @@ public class SearchServiceImpl implements SearchService {
 
         // 검색
         Slice<SecondhandScrapedPost> posts =
-                secondhandPostRepository.findByDevice_DeviceNameContaining(searchReqDTO.getKeyword(), pageable);
+                secondhandPostRepository.searchSecondhandPostByDeviceName(searchReqDTO.getKeyword().replace(" ", ""), pageable);
 
 
         // 키워드 검색 연관 기능

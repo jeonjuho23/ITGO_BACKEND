@@ -2,25 +2,16 @@ package itgo.it_secondhand.repository;
 
 import itgo.it_secondhand.domain.*;
 import itgo.it_secondhand.domain.value.Location;
-import itgo.it_secondhand.enum_.SortBy;
-import itgo.it_secondhand.service.like.DTO.LikeReqDTO;
-import itgo.it_secondhand.service.like.LikeService;
 import itgo.it_secondhand.service.like.PostLikeServiceImpl;
-import itgo.it_secondhand.service.post.DTO.PostResDTO;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.extension.Extension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -95,7 +84,7 @@ class SecondhandPostRepositoryTest {
 
         // when
 //        Slice<SecondhandScrapedPost> result = secondhandPostRepository.findPostKeywordContaining(keyword, pageable);
-        Slice<SecondhandScrapedPost> result = secondhandPostRepository.findByDevice_DeviceNameContaining(keyword, pageable);
+        Slice<SecondhandScrapedPost> result = secondhandPostRepository.searchSecondhandPostByDeviceName(keyword, pageable);
     }
 
 
